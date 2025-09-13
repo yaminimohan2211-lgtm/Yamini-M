@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Task List</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; }
+        .completed { text-decoration: line-through; color: #888; }
+        .task-item { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>My Task List</h1>
+    
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter a new task...">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <ul id="taskList"></ul>
+
+    <div>
+        <p>Total tasks: <span id="totalTasks">0</span></p>
+        <p>Completed tasks: <span id="completedTasks">0</span></p>
+    </div>
+
+    <script>
+        // Array to store tasks
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        
+        // DOM Elements
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+        const totalTasksSpan = document.getElementById('totalTasks');
+        const completedTasksSpan = document.getElementById('completedTasks');
+
+        // Function to add a new task
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            
+            if (taskText === '') {
+                alert('Please enter a task!');
+                return;
+            }
+
+            // Create new task object
+            const newTask = {
+                id: Date.now(), // Unique ID using timestamp
+                text: taskText,
+                completed: false,
+                createdAt: new Date().toLocaleString()
+            };
+
+            // Add to array and update storage
+            tasks.push(newTask);
+            saveTasks();
+            
+            // Clear input and update display
+            taskInput.value = '';
+            renderTasks();
+        }
+
+        // Function to toggle task completion
+        function toggleTask(id) {
+            tasks = tasks.map(task => 
+                task.id === id ? { ...task, completed: !task.completed } : task
+            );
+            saveTasks();
+            renderTasks();
+        }
+
+        // Function to delete a task
+        function deleteTask(id) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(task => task.id !== id);
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        // Function to save tasks to localStorage
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Function to render tasks
+        function renderTasks() {
+            taskList.innerHTML = '';
+            let completedCount = 0;
+
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = 'task-item';
+                
+                if (task.completed) {
+                    li.classList.add('completed');
+                    completedCount++;
+                }
+
+                li.innerHTML = `
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                           onchange="toggleTask(${task.id})">
+                    <span>${task.text}</span>
+                    <small>${task.createdAt}</small>
+                    <button onclick="deleteTask(${task.id})">Delete</button>
+                `;
+                
+                taskList.appendChild(li);
+            });
+
+            // Update counters
+            totalTasksSpan.textContent = tasks.length;
+            completedTasksSpan.textContent = completedCount;
+        }
+
+        // Function to clear all tasks
+        function clearAllTasks() {
+            if (confirm('Clear all tasks?')) {
+                tasks = [];
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        // Add event listener for Enter key
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        // Add clear button
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = 'Clear All';
+        clearBtn.onclick = clearAllTasks;
+        clearBtn.style.marginTop = '20px';
+        document.body.appendChild(clearBtn);
+
+        // Initial render
+        renderTasks();
+    </script>
+</body>
+</html>
