@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern CSS Examples</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #ffd166;
+            --danger-color: #ef476f;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Card Component */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #c1121f;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .nav li {
+            margin: 0 1rem;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Flexbox Example */
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .flex-item {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Animation Examples */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .flex-container {
+                flex-direction: column;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .p-1 { padding: 1rem; }
+        .p-2 { padding: 2rem; }
+
+        /* Color Examples */
+        .color-swatch {
+            height: 100px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .bg-primary { background-color: var(--primary-color); }
+        .bg-secondary { background-color: var(--secondary-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        .bg-success { background-color: var(--success-color); }
+        .bg-warning { background-color: var(--warning-color); }
+        .bg-danger { background-color: var(--danger-color); }
+
+        /* Feature Section */
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="animated">
+            <h1>Modern CSS Examples</h1>
+            <p>A collection of modern CSS techniques and components</p>
+        </header>
+
+        <nav>
+            <ul class="nav">
+                <li><a href="#layout">Layout</a></li>
+                <li><a href="#components">Components</a></li>
+                <li><a href="#utilities">Utilities</a></li>
+                <li><a href="#effects">Effects</a></li>
+            </ul>
+        </nav>
+
+        <section id="layout">
+            <h2>Layout Techniques</h2>
+            
+            <h3>CSS Grid Layout</h3>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Grid Item 1</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>This is a card component using CSS Grid for layout.</p>
+                        <button class="btn btn-primary">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Grid Item 2</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Grid provides a powerful way to create responsive layouts.</p>
+                        <button class="btn btn-accent">Get Started</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Grid Item 3</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Notice how these cards automatically adjust to the container width.</p>
+                        <button class="btn btn-primary">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Flexbox Layout</h3>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h3>Flex Item 1</h3>
+                    <p>Flexbox is perfect for one-dimensional layouts and aligning content.</p>
+                </div>
+                <div class="flex-item">
+                    <h3>Flex Item 2</h3>
+                    <p>It provides efficient way to distribute space and align items.</p>
+                </div>
+                <div class="flex-item">
+                    <h3>Flex Item 3</h3>
+                    <p>These boxes have equal height thanks to flexbox.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="components" class="mt-2">
+            <h2>UI Components</h2>
+            
+            <div class="grid-container">
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Color System</h3>
+                    <p>CSS variables for consistent theming</p>
+                    <div class="color-swatch bg-primary">Primary</div>
+                    <div class="color-swatch bg-secondary">Secondary</div>
+                    <div class="color-swatch bg-accent">Accent</div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">✨</div>
+                    <h3>Button Styles</h3>
+                    <p>Various button styles with hover effects</p>
+                    <div class="mt-1">
+                        <button class="btn btn-primary">Primary Button</button>
+                    </div>
+                    <div class="mt-1">
+                        <button class="btn btn-accent">Accent Button</button>
+                    </div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <h3>Form Elements</h3>
+                    <p>Styled form inputs with focus states</p>
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="utilities" class="mt-2">
+            <h2>Utility Classes</h2>
+            
+            <div class="card p-2">
+                <h3>Spacing Utilities</h3>
+                <p>Use classes like <code>.mt-1</code>, <code>.mb-2</code>, <code>.p-1</code>, <code>.p-2</code> for consistent spacing.</p>
+                
+                <div class="bg-primary text-center p-1 mt-2">
+                    <p>This element has padding and margin utilities applied.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="effects" class="mt-2">
+            <h2>Visual Effects</h2>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Hover Effects</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Hover over cards to see them lift up with shadow effects.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Animations</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="pulse">This text has a pulsating animation.</p>
+                        <button class="btn btn-primary">Animated Button</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-2">
+            <p>Created with modern CSS techniques | 2023</p>
+        </footer>
+    </div>
+</body>
+</html>
